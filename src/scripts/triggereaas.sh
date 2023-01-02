@@ -11,7 +11,8 @@ pre_checks() {
 }
 
 trigger_eaas() {
-  TRIGGER_IDS=$(curl --location --silent --request POST "https://$ROOST_ENT_SERVER/api/application/triggerEaasFromCircleCI" \
+  echo "https://$ROOST_ENT_SERVER/api/application/triggerEaasFromCircleCI"
+  OUTPUT=$(curl --location --silent --request POST "https://$ROOST_ENT_SERVER/api/application/triggerEaasFromCircleCI" \
   --header "Content-Type: application/json" \
   --data-raw "{
     \"app_user_id\": \"$ROOST_AUTH_TOKEN\",
@@ -22,7 +23,9 @@ trigger_eaas() {
     \"branch\": \"$CIRCLE_BRANCH\",
     \"circle_workflow_id\": \"$CIRCLE_WORKFLOW_ID\",
     \"user_name\": \"$CIRCLE_PROJECT_USERNAME\"
-  }" | jq -r '.trigger_ids[0]')
+}")
+echo "$OUTPUT"
+  TRIGGER_IDS=$(echo ${OUTPUT} | jq -r '.trigger_ids[0]')
 
   if [ "$TRIGGER_IDS" != "null" ]; then
     echo "Triggered Eaas Successfully."
