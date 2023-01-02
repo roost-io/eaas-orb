@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 ROOST_AUTH_TOKEN=$(eval "echo \"\$$ROOST_AUTH\"")
 ROOST_ENT_SERVER=$(eval "echo \"\$$ENT_SERVER\"")
 
