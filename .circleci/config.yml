@@ -22,7 +22,7 @@ workflows:
           exclude: SC2034 SC2086
           filters: *filters
       - orb-tools/publish:
-          orb-name: roost/roost-orb-test-1
+          orb-name: roost-eaas-orb/eaas-orb
           vcs-type: << pipeline.project.type >>
           requires:
             [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
