@@ -8,7 +8,7 @@ parameters:
   ent_server:
     type: env_var_name
     default: "ROOST_ENT_SERVER"
-    description: "Enterprise Server IP"
+    description: "Name of the environment variable containing the Enterprise Server IP"
   application_name:
     type: string
     description: "Name Of The Application"

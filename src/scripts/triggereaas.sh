@@ -9,7 +9,7 @@ pre_checks() {
     exit 1
   fi
 }
-
+echo $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
 trigger_eaas() {
   TRIGGER_IDS=$(curl --location --silent --request POST "https://$ROOST_ENT_SERVER/api/application/triggerEaasFromCircleCI" \
   --header "Content-Type: application/json" \
