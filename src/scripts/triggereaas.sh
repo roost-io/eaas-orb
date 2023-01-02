@@ -64,6 +64,7 @@ get_eaas_status() {
       ;;
     deploy_failed)
       echo "Failed to deploy application. Please try again."
+      exit 2
       ;;
     *)
       echo "Application setup is in progress."
