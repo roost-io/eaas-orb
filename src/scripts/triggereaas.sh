@@ -1,6 +1,6 @@
 #!/bin/bash
 ROOST_AUTH_TOKEN=$(eval "echo \"\$$ROOST_AUTH\"")
-ENT_SERVER=$(eval "echo \"\$$ENT_SERVER\"")
+ROOST_ENT_SERVER=$(eval "echo \"\$$ENT_SERVER\"")
 
 
 pre_checks() {
@@ -11,7 +11,7 @@ pre_checks() {
 }
 
 trigger_eaas() {
-  TRIGGER_IDS=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/triggerEaasFromCircleCI" \
+  TRIGGER_IDS=$(curl --location --silent --request POST "https://$ROOST_ENT_SERVER/api/application/triggerEaasFromCircleCI" \
   --header "Content-Type: application/json" \
   --data-raw "{
     \"app_user_id\": \"$ROOST_AUTH_TOKEN\",
@@ -36,7 +36,7 @@ trigger_eaas() {
 get_eaas_status() {
 
   TRIGGER_ID=$1
-  STATUS=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/client/git/eaas/getStatus" \
+  STATUS=$(curl --location --silent --request POST "https://$ROOST_ENT_SERVER/api/application/client/git/eaas/getStatus" \
   --header "Content-Type: application/json" \
   --data-raw "{
     \"app_user_id\" : \"${ROOST_AUTH_TOKEN}\",
