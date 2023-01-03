@@ -1,6 +1,6 @@
 #!/bin/bash
 ORB_ROOST_AUTH_TOKEN=$(eval "echo \"\$$ROOST_AUTH_TOKEN\"")
-ORB_ENT_SERVER=$(eval "echo \"\$$ENT_SERVER\"")
+ORB_ENT_SERVER=$(eval "echo \"\$$ROOST_ENT_SERVER\"")
 
 pre_checks() {
   if [ -z "$ORB_ROOST_AUTH_TOKEN" ]; then

@@ -50,7 +50,7 @@ parameters:
     type: string
     default: "ubuntu focal 20.04"
     description: "Ami"
-  ent_server:
+  roost_ent_server:
     type: env_var_name
     default: "ROOST_ENT_SERVER"
     description: "Enterprise Server IP"
@@ -70,7 +70,7 @@ steps:
         DISK_SIZE: <<parameters.disk_size>>
         INSTANCE_TYPE: <<parameters.instance_type>>
         AMI: <<parameters.ami>>
-        ENT_SERVER: <<parameters.ent_server>>
+        ROOST_ENT_SERVER: <<parameters.roost_ent_server>>
 
       name: Creating a roost cluster with specified parameters
       command: <<include(scripts/createcluster.sh)>>
