@@ -9,7 +9,6 @@ The default `.circleci/config.yml` file contains the configuration code needed t
 This is the entry point for our orb "tree", which becomes our `orb.yml` file later.
 
 Within the `@orb.yml` we generally specify 4 configuration keys
-
 **Keys**
 
 1. **version**
