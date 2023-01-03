@@ -15,6 +15,8 @@ pre_checks() {
 }
 
 create_cluster() {
+  echo "https://${ORB_ENT_SERVER}/api/application/client/launchCluster"
+  echo $ROOST_AUTH_TOKEN
   RESPONSE_CODE=$(curl --location --silent --request POST "https://${ORB_ENT_SERVER}/api/application/client/launchCluster" \
   --header "Content-Type: application/json" \
   --data-raw "{
