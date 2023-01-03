@@ -9,15 +9,7 @@ pre_checks() {
     exit 1
   fi
 }
-echo "the request is:"
-echo "https://$ROOST_ENT_SERVER/api/application/triggerEaasFromCircleCI"
-echo "roost_auth_token: $ROOST_AUTH_TOKEN"
-echo "application_name: $APPLICATION_NAME"
-echo "git_type: $PIPELINE_PROJECT_TYPE"
-echo "full_repo_name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
-echo "branch: $CIRCLE_BRANCH"
-echo "circle_workflow_id: $CIRCLE_WORKFLOW_ID"
-echo "user_name: $CIRCLE_PROJECT_USERNAME"
+
 trigger_eaas() {
   OUTPUT=$(curl --location --silent --request POST "https://$ROOST_ENT_SERVER/api/application/triggerEaasFromCircleCI" \
   --header "Content-Type: application/json" \
