@@ -10,7 +10,6 @@ This is the entry point for our orb "tree", which becomes our `orb.yml` file lat
 
 Within the `@orb.yml` we generally specify 4 configuration keys
 **Keys**
-
 1. **version**
     Specify version 2.1 for orb-compatible configuration `version: 2.1`
 2. **description**
