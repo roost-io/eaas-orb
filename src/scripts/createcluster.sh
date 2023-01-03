@@ -14,6 +14,8 @@ pre_checks() {
   fi
 }
 
+echo "linetest"
+
 create_cluster() {
   RESPONSE_CODE=$(curl --location --silent --request POST "https://${ENT_SERVER}/api/application/client/launchCluster" \
   --header "Content-Type: application/json" \
@@ -36,6 +38,7 @@ create_cluster() {
     get_kubeconfig
   else
     echo "Failed to launch cluster. please try again"
+    exit 1
   fi
 }
 
