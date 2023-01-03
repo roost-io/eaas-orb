@@ -16,7 +16,18 @@ pre_checks() {
 
 create_cluster() {
   echo "https://${ORB_ENT_SERVER}/api/application/client/launchCluster"
-  echo $ROOST_AUTH_TOKEN
+  echo $ALIAS
+  echo $NAMESPACE
+  echo $EMAIL
+  echo $K8S_VERSION
+  echo $NUM_WORKERS
+  echo $PREEMPTIBLE
+  echo $CLUSTER_EXPIRY
+  echo $REGION
+  echo $ROOT_DISK_SIZE
+  echo $INSTANCE_TYPE
+  echo $AMI
+  echo $ORB_ROOST_AUTH_TOKEN
   RESPONSE_CODE=$(curl --location --silent --request POST "https://${ORB_ENT_SERVER}/api/application/client/launchCluster" \
   --header "Content-Type: application/json" \
   --data-raw "{
