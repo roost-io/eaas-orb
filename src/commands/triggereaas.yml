@@ -1,7 +1,7 @@
 description:
   Trigger Roost EAAS from circleci, requires ROOST_AUTH_TOKEN and "ROOST_ENT_SERVER" environment variables to be set.
 parameters:
-  roost_auth_token:
+  auth_token:
     type: env_var_name
     default: "ROOST_AUTH_TOKEN"
     description: "Roost Authorization Token"
@@ -23,8 +23,8 @@ parameters:
 steps:
   - run:
       environment:
-        ROOST_AUTH: <<parameters.roost_auth_token>>
-        ENT_SERVER: <<parameters.ent_server>>
+        ROOST_AUTH_TOKEN: <<parameters.auth_token>>
+        ROOST_ENT_SERVER: <<parameters.ent_server>>
         PIPELINE_PROJECT_TYPE: <<parameters.pipeline_project_type>>
         APPLICATION_NAME: <<parameters.application_name>>
 

@@ -1,7 +1,7 @@
 description: >
   Create a roost k8s cluster requires ROOST_AUTH_TOKEN and "ROOST_ENT_SERVER" environment variables to be set..
 parameters:
-  roost_auth_token:
+  auth_token:
     type: env_var_name
     default: "ROOST_AUTH_TOKEN"
     description: "Roost Authorization Token, name of the environment variable having the roost auth token, e.g. ROOST_AUTH_TOKEN"
@@ -50,7 +50,7 @@ parameters:
     type: string
     default: "ubuntu focal 20.04"
     description: "Ami"
-  roost_ent_server:
+  ent_server:
     type: env_var_name
     default: "ROOST_ENT_SERVER"
     description: "Enterprise Server IP"
@@ -58,7 +58,7 @@ parameters:
 steps:
   - run:
       environment:
-        ROOST_AUTH_TOKEN: <<parameters.roost_auth_token>>
+        ROOST_AUTH_TOKEN: <<parameters.auth_token>>
         EMAIL: <<parameters.email>>
         ALIAS: <<parameters.alias>>
         PREEMPTIBLE: <<parameters.preemptible>>
@@ -70,7 +70,7 @@ steps:
         DISK_SIZE: <<parameters.disk_size>>
         INSTANCE_TYPE: <<parameters.instance_type>>
         AMI: <<parameters.ami>>
-        ROOST_ENT_SERVER: <<parameters.roost_ent_server>>
+        ROOST_ENT_SERVER: <<parameters.ent_server>>
 
       name: Creating a roost cluster with specified parameters
       command: <<include(scripts/createcluster.sh)>>

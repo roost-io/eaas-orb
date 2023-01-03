@@ -1,6 +1,6 @@
-#!/bin/bash -x
-ROOST_AUTH_TOKEN=$(eval "echo \"\$$ROOST_AUTH\"")
-ROOST_ENT_SERVER=$(eval "echo \"\$$ENT_SERVER\"")
+#!/bin/bash
+ROOST_AUTH_TOKEN=$(eval "echo \"\$$ROOST_AUTH_TOKEN\"")
+ENT_SERVER=$(eval "echo \"\$$ROOST_ENT_SERVER\"")
 
 
 pre_checks() {
@@ -11,7 +11,9 @@ pre_checks() {
 }
 
 trigger_eaas() {
-  OUTPUT=$(curl --location --silent --request POST "https://$ROOST_ENT_SERVER/api/application/triggerEaasFromCircleCI" \
+  echo $ROOST_AUTH_TOKEN
+  echo $ENT_SERVER
+  TRIGGER_IDS=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/triggerEaasFromCircleCI" \
   --header "Content-Type: application/json" \
   --data-raw "{
     \"app_user_id\": \"$ROOST_AUTH_TOKEN\",
@@ -22,23 +24,20 @@ trigger_eaas() {
     \"branch\": \"$CIRCLE_BRANCH\",
     \"circle_workflow_id\": \"$CIRCLE_WORKFLOW_ID\",
     \"user_name\": \"$CIRCLE_PROJECT_USERNAME\"
-}")
-echo "$OUTPUT"
-  TRIGGER_IDS=$(echo ${OUTPUT} | jq -r '.trigger_ids[0]')
+  }" | jq -r '.trigger_ids[0]')
 
   if [ "$TRIGGER_IDS" != "null" ]; then
     echo "Triggered Eaas Successfully."
     get_eaas_status "$TRIGGER_IDS"
   else
     echo "Failed to trigger Eaas. Please try again."
-    exit 1
   fi
 }
 
 get_eaas_status() {
 
   TRIGGER_ID=$1
-  STATUS=$(curl --location --silent --request POST "https://$ROOST_ENT_SERVER/api/application/client/git/eaas/getStatus" \
+  STATUS=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/client/git/eaas/getStatus" \
   --header "Content-Type: application/json" \
   --data-raw "{
     \"app_user_id\" : \"${ROOST_AUTH_TOKEN}\",
@@ -66,7 +65,6 @@ get_eaas_status() {
       ;;
     deploy_failed)
       echo "Failed to deploy application. Please try again."
-      exit 2
       ;;
     *)
       echo "Application setup is in progress."
