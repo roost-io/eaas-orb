@@ -58,7 +58,7 @@ parameters:
 steps:
   - run:
       environment:
-        ROOST_AUTH_TOKEN: <<parameters.auth_token>>
+        ORB_ENV_AUTH_TOKEN: <<parameters.auth_token>>
         EMAIL: <<parameters.email>>
         ALIAS: <<parameters.alias>>
         PREEMPTIBLE: <<parameters.preemptible>>
@@ -70,7 +70,7 @@ steps:
         DISK_SIZE: <<parameters.disk_size>>
         INSTANCE_TYPE: <<parameters.instance_type>>
         AMI: <<parameters.ami>>
-        ROOST_ENT_SERVER: <<parameters.ent_server>>
+        ORB_ENV_ENT_SERVER: <<parameters.ent_server>>
 
       name: Creating a roost cluster with specified parameters
       command: <<include(scripts/createcluster.sh)>>
