@@ -1,22 +1,22 @@
 #!/bin/bash
-ROOST_AUTH_TOKEN=$(eval "echo \"\$$ROOST_AUTH_TOKEN\"")
+ORB_ROOST_AUTH_TOKEN=$(eval "echo \"\$$ROOST_AUTH_TOKEN\"")
 ENT_SERVER=$(eval "echo \"\$$ROOST_ENT_SERVER\"")
 
 
 pre_checks() {
-  if [ -z "$ROOST_AUTH_TOKEN" ]; then
-    echo "The ROOST_AUTH_TOKEN is not found. Please add the ROOST_AUTH_TOKEN as an environment variable in CicleCI before continuing."
+  if [ -z "$ORB_ROOST_AUTH_TOKEN" ]; then
+    echo "The ORB_ROOST_AUTH_TOKEN is not found. Please add the ORB_ROOST_AUTH_TOKEN as an environment variable in CicleCI before continuing."
     exit 1
   fi
 }
 
 trigger_eaas() {
-  echo $ROOST_AUTH_TOKEN
+  echo $ORB_ROOST_AUTH_TOKEN
   echo $ENT_SERVER
   TRIGGER_IDS=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/triggerEaasFromCircleCI" \
   --header "Content-Type: application/json" \
   --data-raw "{
-    \"app_user_id\": \"$ROOST_AUTH_TOKEN\",
+    \"app_user_id\": \"$ORB_ROOST_AUTH_TOKEN\",
     \"application_name\": \"$APPLICATION_NAME\",
     \"git_type\": \"$PIPELINE_PROJECT_TYPE\",
     \"repo_id\": \"\",
@@ -40,7 +40,7 @@ get_eaas_status() {
   STATUS=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/client/git/eaas/getStatus" \
   --header "Content-Type: application/json" \
   --data-raw "{
-    \"app_user_id\" : \"${ROOST_AUTH_TOKEN}\",
+    \"app_user_id\" : \"${ORB_ROOST_AUTH_TOKEN}\",
     \"trigger_id\" : \"$TRIGGER_ID\"
   }" | jq -r '.current_status')
 
