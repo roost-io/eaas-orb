@@ -17,6 +17,7 @@ pre_checks() {
 create_cluster() {
   echo $ENT_SERVER
   echo $ORB_ROOST_AUTH_TOKEN
+  echo "/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
   RESPONSE_CODE=$(curl --location --silent --request POST "https://${ENT_SERVER}/api/application/client/launchCluster" \
   --header "Content-Type: application/json" \
   --data-raw "{
