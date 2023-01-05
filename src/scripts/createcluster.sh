@@ -35,7 +35,7 @@ create_cluster() {
   RESPONSE_CODE=$(curl --location --silent --request POST "https://${ENT_SERVER}/api/application/client/launchCluster" \
   --header "Content-Type: application/json" \
   --data-raw "{
-    \"ROOST_AUTH_TOKEN\": \"$ROOST_AUTH_TOKEN\",
+    \"roost_auth_token\": \"$ROOST_AUTH_TOKEN\",
     \"alias\": \"${ALIAS}\",
     \"namespace\": \"${NAMESPACE}\",
     \"customer_email\": \"${EMAIL}\",
@@ -48,6 +48,7 @@ create_cluster() {
     \"instance_type\": \"$INSTANCE_TYPE\",
     \"ami\": \"${AMI}\"
   }" | jq -r '.ResponseCode')
+
   if [ "${RESPONSE_CODE}" -eq 0 ]; then
     get_kubeconfig
   else
