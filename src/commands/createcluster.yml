@@ -32,7 +32,7 @@ parameters:
     description: Number Of Worker Nodes.
   namespace:
     type: string
-    default: "roost-codesapace"
+    default: "roost-circleci"
     description: Default Namepace.
   region:
     type: string
