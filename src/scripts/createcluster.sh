@@ -1,6 +1,6 @@
 #!/bin/bash
 ORB_ROOST_AUTH_TOKEN=$(eval "echo \"\$$ROOST_AUTH_TOKEN\"")
-ORB_ENT_SERVER=$(eval "echo \"\$$ROOST_ENT_SERVER\"")
+ENT_SERVER=$(eval "echo \"\$$ENT_SRVR\"")
 
 pre_checks() {
   if [ -z "$ORB_ROOST_AUTH_TOKEN" ]; then
@@ -15,20 +15,8 @@ pre_checks() {
 }
 
 create_cluster() {
-  echo "https://${ORB_ENT_SERVER}/api/application/client/launchCluster"
-  echo $ALIAS
-  echo $NAMESPACE
-  echo $EMAIL
-  echo $K8S_VERSION
-  echo $NUM_WORKERS
-  echo $PREEMPTIBLE
-  echo $CLUSTER_EXPIRY
-  echo $REGION
-  echo $ROOT_DISK_SIZE
-  echo $INSTANCE_TYPE
-  echo $AMI
-  echo $ORB_ROOST_AUTH_TOKEN
-  RESPONSE_CODE=$(curl --location --silent --request POST "https://${ORB_ENT_SERVER}/api/application/client/launchCluster" \
+  echo $ENT_SERVER
+  RESPONSE_CODE=$(curl --location --silent --request POST "https://${ENT_SERVER}/api/application/client/launchCluster" \
   --header "Content-Type: application/json" \
   --data-raw "{
     \"roost_auth_token\": \"$ORB_ROOST_AUTH_TOKEN\",
@@ -57,7 +45,7 @@ get_kubeconfig() {
   sleep 5m
   for i in {1..10}
   do
-    KUBECONFIG=$(curl --location --silent --request POST "https://${ORB_ENT_SERVER}/api/application/cluster/getKubeConfig" \
+    KUBECONFIG=$(curl --location --silent --request POST "https://${ENT_SERVER}/api/application/cluster/getKubeConfig" \
     --header "Content-Type: application/json" \
     --data-raw "{
       \"app_user_id\" : \"${ORB_ROOST_AUTH_TOKEN}\",
