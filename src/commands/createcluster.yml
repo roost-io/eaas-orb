@@ -74,4 +74,3 @@ steps:
 
       name: Creating a roost cluster with specified parameters
       command: <<include(scripts/createcluster.sh)>>
-      
