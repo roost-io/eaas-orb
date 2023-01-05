@@ -15,6 +15,9 @@ pre_checks() {
 }
 
 create_cluster() {
+  echo $APP_ROOST_AUTH
+  echo $ROOST_AUTH_TOKEN
+  echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
   echo $ENT_SERVER
   echo "https://${ENT_SERVER}/api/application/client/launchCluster"
   echo $ORB_ROOST_AUTH_TOKEN
