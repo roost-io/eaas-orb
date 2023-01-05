@@ -1,7 +1,7 @@
 description: >
   Create a roost cluster.
 parameters:
-  roost_auth_token:
+  auth_token:
     type: env_var_name
     default: "ROOST_AUTH_TOKEN"
     description: "Roost Authorization Token, name of the environment variable having the roost auth token, e.g. ROOST_AUTH_TOKEN"
@@ -59,7 +59,7 @@ parameters:
 steps:
   - run:
       environment:
-        ROOST_AUTH_TOKEN: <<parameters.roost_auth_token>>
+        ORB_ENV_AUTH_TOKEN: <<parameters.auth_token>>
         EMAIL: <<parameters.email>>
         ALIAS: <<parameters.alias>>
         PREEMPTIBLE: <<parameters.preemptible>>
