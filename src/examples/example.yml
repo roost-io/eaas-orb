@@ -1,8 +1,5 @@
 description: >
-  Sample example description.
-# Provide a use-case based example for using this orb.
-# Everything in the `usage` section will be displayed in the orb registry.
-# Comments are not retained.
+  Create a roost cluster and trigger an application in Roost EAAS.
 usage:
   version: 2.1
   orbs:
