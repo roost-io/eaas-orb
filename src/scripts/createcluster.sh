@@ -48,7 +48,6 @@ create_cluster() {
     \"instance_type\": \"$INSTANCE_TYPE\",
     \"ami\": \"${AMI}\"
   }" | jq -r '.ResponseCode')
-
   if [ "${RESPONSE_CODE}" -eq 0 ]; then
     get_kubeconfig
   else
