@@ -3,8 +3,6 @@ set -x
 
 ROOST_AUTH_TOKEN=$(eval "echo \"\$$ORB_ENV_AUTH_TOKEN\"")
 ENT_SERVER=$(eval "echo \"\$$ORB_ENV_ENT_SERVER\"")
-echo $ROOST_AUTH_TOKEN
-echo $ENT_SERVER
 
 
 pre_checks() {

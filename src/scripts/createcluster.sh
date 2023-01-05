@@ -3,8 +3,6 @@ set -x
 
 ROOST_AUTH_TOKEN=$(eval "echo \"\$$ORB_ENV_AUTH_TOKEN\"")
 ENT_SERVER=$(eval "echo \"\$$ORB_ENV_ENT_SERVER\"")
-echo $ROOST_AUTH_TOKEN
-echo $ENT_SERVER
 
 pre_checks() {
   if [ -z "$ROOST_AUTH_TOKEN" ]; then
@@ -22,7 +20,7 @@ create_cluster() {
   RESPONSE_CODE=$(curl --location --silent --request POST "https://${ENT_SERVER}/api/application/client/launchCluster" \
   --header "Content-Type: application/json" \
   --data-raw "{
-    \"ROOST_AUTH_TOKEN\": \"$ROOST_AUTH_TOKEN\",
+    \"roost_auth_token\": \"$ROOST_AUTH_TOKEN\",
     \"alias\": \"${ALIAS}\",
     \"namespace\": \"${NAMESPACE}\",
     \"customer_email\": \"${EMAIL}\",
