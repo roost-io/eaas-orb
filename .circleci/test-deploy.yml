@@ -17,8 +17,7 @@ jobs:
       - checkout
       # Run your orb's commands to validate them.
       - eaas-orb/createcluster:
-          email: "support@zb.io"
-          alias: "testalias"         
+          email: "support@zb.io"     
 workflows:
   test-deploy:
     jobs:
@@ -28,7 +27,7 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: roost/roost-orb-test-1
+          orb-name: roost-eaas-orb/eaas-orb
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
