@@ -28,6 +28,7 @@ trigger_eaas() {
     get_eaas_status "$TRIGGER_IDS"
   else
     echo "Failed to trigger Eaas. Please try again."
+    exit 1
   fi
 }
 
@@ -62,6 +63,7 @@ get_eaas_status() {
       ;;
     deploy_failed)
       echo "Failed to deploy application. Please try again."
+      exit 1
       ;;
     *)
       echo "Application setup is in progress."
