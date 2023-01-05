@@ -1,13 +1,28 @@
 description: >
-  Sample example description.
-# Provide a use-case based example for using this orb.
-# Everything in the `usage` section will be displayed in the orb registry.
-# Comments are not retained.
+  Create a roost cluster and trigger an application in Roost EAAS.
 usage:
   version: 2.1
   orbs:
-    <orb-name>: <namespace>/<orb-name>@1.2.3
+    eaas-orb: roost-eaas-orb/eaas-orb@x.y
   workflows:
     use-my-orb:
       jobs:
-        - <orb-name>/<job-name>
+        - eaas-orb/createcluster:
+            auth_token: "ROOST_AUTH_TOKEN"
+            email: "support@zb.io"
+            alias: ""
+            preemptible: "false"
+            k8s_version: "1.22.2"
+            cluster_expires_in_hours: "1"
+            num_workers: "1"
+            namespace: "roost-codespace"
+            region: "us-west-1"
+            disk_size: "50"
+            instance_type: "t3.large"
+            ami: "ubuntu focal 20.04"
+            ent_server: "ROOST_SERVER"
+        - eaas-orb/triggereaas:
+            auth_token: "ROOST_AUTH_TOKEN"
+            ent_server: "ROOST_SERVER"
+            application_name: "eaastest"
+            pipeline_project_type: "github"
