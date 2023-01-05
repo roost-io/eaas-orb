@@ -1,13 +1,11 @@
 #!/bin/bash
 set -x
 
-ROOST_AUTH_TOKEN=$(eval "echo \"\$$ORB_ENV_AUTH_TOKEN\"")
-ENT_SERVER=$(eval "echo \"\$$ORB_ENV_ENT_SERVER\"")
-echo $ROOST_AUTH_TOKEN
-echo $ENT_SERVER
+ORB_ROOST_AUTH_TOKEN=$(eval "echo \"\$$ROOST_AUTH_TOKEN\"")
+ENT_SERVER=$(eval "echo \"\$$ENT_SRVR\"")
 
 pre_checks() {
-  if [ -z "$ROOST_AUTH_TOKEN" ]; then
+  if [ -z "$ORB_ROOST_AUTH_TOKEN" ]; then
     echo "The ROOST_AUTH_TOKEN is not found. Please add the ROOST_AUTH_TOKEN as an environment variable in CicleCI before continuing."
     exit 1
   fi
@@ -19,23 +17,12 @@ pre_checks() {
 }
 
 create_cluster() {
-  echo "https://${ENT_SERVER}/api/application/client/launchCluster"
-  echo $ROOST_AUTH_TOKEN
-  echo $ALIAS
-  echo $NAMESPACE
-  echo $EMAIL
-  echo $K8S_VERSION
-  echo $NUM_WORKERS
-  echo $PREEMPTIBLE
-  echo $CLUSTER_EXPIRY
-  echo $REGION
-  echo $ROOT_DISK_SIZE
-  echo $INSTANCE_TYPE
-  echo $AMI
+  echo $ENT_SERVER
+  echo $ORB_ROOST_AUTH_TOKEN
   RESPONSE_CODE=$(curl --location --silent --request POST "https://${ENT_SERVER}/api/application/client/launchCluster" \
   --header "Content-Type: application/json" \
   --data-raw "{
-    \"roost_auth_token\": \"$ROOST_AUTH_TOKEN\",
+    \"roost_auth_token\": \"$ORB_ROOST_AUTH_TOKEN\",
     \"alias\": \"${ALIAS}\",
     \"namespace\": \"${NAMESPACE}\",
     \"customer_email\": \"${EMAIL}\",
@@ -64,7 +51,7 @@ get_kubeconfig() {
     KUBECONFIG=$(curl --location --silent --request POST "https://${ENT_SERVER}/api/application/cluster/getKubeConfig" \
     --header "Content-Type: application/json" \
     --data-raw "{
-      \"app_user_id\" : \"${ROOST_AUTH_TOKEN}\",
+      \"app_user_id\" : \"${ORB_ROOST_AUTH_TOKEN}\",
       \"cluster_alias\" : \"${ALIAS}\"
     }" | jq -r '.kubeconfig')
 
