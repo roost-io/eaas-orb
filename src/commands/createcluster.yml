@@ -10,7 +10,7 @@ parameters:
     description: "User Email"
   alias:
     type: string
-    default: null
+    default: ''
     description: "Alias Name"
   preemptible:
     type: string
