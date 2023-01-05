@@ -18,7 +18,6 @@ _**Edit this area to include a custom title and description.**_
 [CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using, creating, and publishing CircleCI Orbs.
 
 ### How to Contribute
-
 We welcome [issues](https://github.com/roost-io/eaas-orb/issues) to and [pull requests](https://github.com/roost-io/eaas-orb/pulls) against this repository!
 
 ### How to Publish An Update
