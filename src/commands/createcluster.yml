@@ -3,13 +3,13 @@ parameters:
   auth_token:
     type: env_var_name
     default: "ROOST_AUTH_TOKEN"
-    description: Roost Authorization Token, name of the environment variable having the roost auth token, e.g. ROOST_AUTH_TOKEN
+    description: Roost Authorization Token, name of the environment variable having the roost auth token, e.g. ROOST_AUTH_TOKEN.
   email:
     type: string
-    description: User Email
+    description: User Email.
   alias:
     type: string
-    description: Alias Name
+    description: Alias Name, if not provided then a random one will be generated automatically.
     default: ""
   preemptible:
     type: string
@@ -17,43 +17,43 @@ parameters:
       - "true"
       - "false"
     default: "false"
-    description: Preemptible Type
+    description: Preemptible Type.
   k8s_version:
     type: string
     default: "1.22.2"
-    description: Kubernetes Version
+    description: Kubernetes Version.
   cluster_expires_in_hours:
     type: string
     default: "1"
-    description: Cluster Expiration Time ( in Hrs )
+    description: Cluster Expiration Time ( in Hrs ).
   num_workers:
     type: string
     default: "1"
-    description: Number Of Worker Nodes
+    description: Number Of Worker Nodes.
   namespace:
     type: string
     default: "roost-codesapace"
-    description: Default Namepace
+    description: Default Namepace.
   region:
     type: string
     default: "us-west-1"
-    description: Aws Region
+    description: Aws Region.
   disk_size:
     type: string
     default: "50"
-    description: Disk Size
+    description: Disk Size.
   instance_type:
     type: string
     default: "t3.large"
-    description: Instance Type
+    description: Instance Type.
   ami:
     type: string
     default: "ubuntu focal 20.04"
-    description: "Ami"
+    description: Ami.
   ent_server:
     type: env_var_name
     default: "ROOST_SERVER"
-    description: Enterprise Server IP
+    description: Enterprise Server IP.
 
 steps:
   - run:

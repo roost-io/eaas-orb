@@ -4,7 +4,7 @@ ENT_SERVER=$(eval "echo \"\$$ORB_ENV_ENT_SERVER\"")
 
 pre_checks() {
   if [ -z "$ROOST_AUTH_TOKEN" ]; then
-    echo "The ROOST_AUTH_TOKEN is not found. Please add the ROOST_AUTH_TOKEN as an environment variable in CicleCI before continuing."
+    echo "ROOST_AUTH_TOKEN not found. Please add ROOST_AUTH_TOKEN as an environment variable in CicleCI before continuing."
     exit 1
   fi
 }

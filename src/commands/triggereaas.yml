@@ -3,7 +3,7 @@ parameters:
   auth_token:
     type: env_var_name
     default: "ROOST_AUTH_TOKEN"
-    description: Roost Authorization Token.
+    description: Roost Authorization Token, name of the environment variable having the roost auth token, e.g. ROOST_AUTH_TOKEN.
   ent_server:
     type: env_var_name
     default: "ROOST_SERVER"
