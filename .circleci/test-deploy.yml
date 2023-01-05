@@ -28,7 +28,7 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: roost-eaas-orb/eaas-orb
+          orb-name: roost/roost-orb-test-1
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
