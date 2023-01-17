@@ -5,38 +5,38 @@ usage:
   orbs:
     eaas-orb: roost-eaas-orb/eaas-orb@x.y
   jobs:
-  cluster-create:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - checkout
-      - eaas-orb/create-cluster:
-            auth_token: "ROOST_AUTH_TOKEN"
-            email: "support@zb.io"
-            alias: ""
-            preemptible: "false"
-            k8s_version: "1.22.2"
-            cluster_expires_in_hours: "1"
-            num_workers: "1"
-            namespace: "roost-codespace"
-            region: "us-west-1"
-            disk_size: "50"
-            instance_type: "t3.large"
-            ami: "ubuntu focal 20.04"
-            ent_server: "ROOST_SERVER"
+    cluster-create:
+      docker:
+        - image: cimg/base:current
+      steps:
+        - checkout
+        - eaas-orb/create-cluster:
+          auth_token: "ROOST_AUTH_TOKEN"
+          email: "support@zb.io"
+          alias: ""
+          preemptible: "false"
+          k8s_version: "1.22.2"
+          cluster_expires_in_hours: "1"
+          num_workers: "1"
+          namespace: "roost-codespace"
+          region: "us-west-1"
+          disk_size: "50"
+          instance_type: "t3.large"
+          ami: "ubuntu focal 20.04"
+          ent_server: "ROOST_SERVER"
     trigger-application:
       docker:
-      - image: cimg/base:current
+        - image: cimg/base:current
       steps:
-      - checkout
-      - eaas-orb/trigger-eaas:
-            auth_token: "ROOST_AUTH_TOKEN"
-            ent_server: "ROOST_SERVER"
-            application_name: "eaastest"
-            pipeline_project_type: "github"
+        - checkout
+        - eaas-orb/trigger-eaas:
+          auth_token: "ROOST_AUTH_TOKEN"
+          ent_server: "ROOST_SERVER"
+          application_name: "eaastest"
+          pipeline_project_type: "github"
   workflows:
     use-my-orb:
       jobs:
-        -cluster-create
-        -trigger-application
+        - cluster-create
+        - trigger-application
         
