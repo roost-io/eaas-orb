@@ -3,7 +3,7 @@ parameters:
   auth_token:
     type: env_var_name
     default: "ROOST_AUTH_TOKEN"
-    description: Roost Authorization Token, name of the environment variable having the roost auth token, e.g. ROOST_AUTH_TOKEN.
+    description: Roost Authorization Token, name of the environment variable having the roost auth token, ROOST_AUTH_TOKEN by default.
   email:
     type: string
     description: User Email.
@@ -53,7 +53,7 @@ parameters:
   ent_server:
     type: env_var_name
     default: "ROOST_SERVER"
-    description: Enterprise Server IP.
+    description: Name of the environment variable containing the Enterprise Server IP. ROOST_SERVER by default.
 
 steps:
   - run:
@@ -73,4 +73,4 @@ steps:
         ORB_ENV_ENT_SERVER: <<parameters.ent_server>>
 
       name: Creating a roost cluster with specified parameters
-      command: <<include(scripts/createcluster.sh)>>
+      command: <<include(scripts/create-cluster.sh)>>
