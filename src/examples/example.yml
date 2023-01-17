@@ -39,4 +39,3 @@ usage:
       jobs:
         - cluster-create
         - trigger-application
-        
