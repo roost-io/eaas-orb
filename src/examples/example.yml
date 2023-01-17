@@ -5,7 +5,7 @@ usage:
   orbs:
     eaas-orb: roost-eaas-orb/eaas-orb@x.y
   jobs:
-  clustercreate:
+  cluster-create:
     docker:
       - image: cimg/base:current
     steps:
@@ -24,7 +24,7 @@ usage:
             instance_type: "t3.large"
             ami: "ubuntu focal 20.04"
             ent_server: "ROOST_SERVER"
-    triggerapplication:
+    trigger-application:
       docker:
       - image: cimg/base:current
       steps:
