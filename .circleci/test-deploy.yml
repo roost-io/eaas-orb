@@ -13,7 +13,7 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
-      - eaas-orb/createcluster:
+      - eaas-orb/create-cluster:
           email: "support@zb.io"     
 workflows:
   test-deploy:
@@ -35,3 +35,5 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+
+# VS Code Extension Version: 1.5.1
