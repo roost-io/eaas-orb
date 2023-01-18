@@ -10,7 +10,7 @@ pre_checks() {
 }
 
 trigger_eaas() {
-  TRIGGER_IDS=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/triggerEaasFromCircleCI" \
+  EAAS_RESPONSE=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/triggerEaasFromCircleCI" \
   --header "Content-Type: application/json" \
   --data-raw "{
     \"app_user_id\": \"$ROOST_AUTH_TOKEN\",
@@ -21,28 +21,54 @@ trigger_eaas() {
     \"branch\": \"$CIRCLE_BRANCH\",
     \"circle_workflow_id\": \"$CIRCLE_WORKFLOW_ID\",
     \"user_name\": \"$CIRCLE_PROJECT_USERNAME\"
-  }" | jq -r '.trigger_ids[0]')
+  }")
 
-  if [ "$TRIGGER_IDS" != "null" ]; then
-    echo "Triggered Eaas Successfully."
-    get_eaas_status "$TRIGGER_IDS"
-  else
-    echo "Failed to trigger Eaas. Please try again."
+  TRIGGER_IDS=$(echo $EAAS_RESPONSE | jq -r '.trigger_ids[0]')
+  ERROR_MSG=$(echo $EAAS_RESPONSE | jq -r '.message')
+  if [ "$TRIGGER_IDS" == "null" ]; then
+    echo "Failed to trigger Eaas. Reason: ${ERROR_MSG}. Please try again."
     exit 1
+  else
+    echo "Triggered Eaas Successfully."
+    sleep 30
+    get_eaas_status "$TRIGGER_IDS"
   fi
 }
 
 get_eaas_status() {
-
   TRIGGER_ID=$1
-  STATUS=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/client/git/eaas/getStatus" \
+  RESPONSE=$(curl --location --silent --request POST "https://$ENT_SERVER/api/application/client/git/eaas/getStatus" \
   --header "Content-Type: application/json" \
   --data-raw "{
     \"app_user_id\" : \"${ROOST_AUTH_TOKEN}\",
     \"trigger_id\" : \"$TRIGGER_ID\"
-  }" | jq -r '.current_status')
+  }")
 
-  case "$STATUS" in
+  INFRA_STATUS=$(echo -E "$RESPONSE" | jq -r '.infra_output.INFRA_STATUS')
+  if [ -z "$INFRA_STATUS" ]; then
+    INFRA_STATUS="infra_setup_in_progress"
+  fi
+
+  case "$INFRA_STATUS" in
+    infra_ops_in_progress)
+      echo "Infra setup is in progress."
+      sleep 30
+      get_eaas_status $TRIGGER_ID
+      ;;
+    infra_ops_completed)
+      for key in $(echo -E "$RESPONSE" | jq -r '.infra_output | keys[]'); do
+        if [ "$key" != "INFRA_STATUS" ]; then
+          val=$(echo -E "$RESPONSE" | jq -r .infra_output.$key)
+          echo "export '$key'='$val'" >> $BASH_ENV
+        fi
+      done
+      cp $BASH_ENV bash.env
+      echo "Infra setup is completed."
+      ;;
+    infra_ops_failed)
+      echo "Infra setup failed. Please try again."
+      exit 1
+      ;;
     setup_in_progress)
       echo "Application setup is in progress."
       sleep 30
