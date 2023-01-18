@@ -10,7 +10,7 @@ pre_checks() {
 
   ROOT_DISK_SIZE="${DISK_SIZE}GB"
   if [ -z "${ALIAS}" ]; then
-    ALIAS=$(date +%s)
+    ALIAS="${CIRCLE_PROJECT_USERNAME}-$(date +%s)"
   fi
 }
 
