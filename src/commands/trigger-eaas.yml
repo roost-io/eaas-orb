@@ -28,4 +28,4 @@ steps:
         APPLICATION_NAME: <<parameters.application_name>>
 
       name: Triggering an EAAS workflow in roost.
-      command: <<include(scripts/trigger-eaas.sh)>>
+      command: <<include(scripts/triggereaas.sh)>>

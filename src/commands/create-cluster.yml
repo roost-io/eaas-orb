@@ -73,4 +73,4 @@ steps:
         ORB_ENV_ENT_SERVER: <<parameters.ent_server>>
 
       name: Creating a roost cluster with specified parameters
-      command: <<include(scripts/create-cluster.sh)>>
+      command: <<include(scripts/createcluster.sh)>>
