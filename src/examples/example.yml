@@ -23,7 +23,7 @@ usage:
             disk_size: "50"
             instance_type: "t3.large"
             ami: "ubuntu focal 20.04"
-            ent_server: "ROOST_SERVER"
+            roost_server: "ROOST_SERVER"
     trigger-application:
       docker:
         - image: cimg/base:current
@@ -31,7 +31,7 @@ usage:
         - checkout
         - eaas-orb/trigger-eaas:
             auth_token: "ROOST_AUTH_TOKEN"
-            ent_server: "ROOST_SERVER"
+            roost_server: "ROOST_SERVER"
             application_name: "eaastest"
             pipeline_project_type: "github"
   workflows:
