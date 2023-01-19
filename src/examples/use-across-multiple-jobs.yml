@@ -11,8 +11,6 @@ usage:
       steps:
         - checkout
         - eaas-orb/trigger-eaas:
-            auth_token: "ROOST_AUTH_TOKEN"
-            roost_server: "ROOST_SERVER"
             application_name: "eaastest"
             pipeline_project_type: "github"
         # use persist_to_workspace to make sure the created bash.env file persists even after the job is finished.
@@ -26,7 +24,7 @@ usage:
       steps:
         # attach the created workspace into the job you want to use the exported kubeConfig is.
         - attach_workspace:
-          at: .
+            at: .
         # import the values stored in the bash.env file into your environment variables.
         - run: |
             cat bash.env >> $BASH_ENV
