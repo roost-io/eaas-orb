@@ -62,6 +62,8 @@ get_eaas_status() {
           echo "export '$key'='$val'" >> $BASH_ENV
         fi
       done
+      echo "export FOO=BAR" >> $BASH_ENV
+      cp $BASH_ENV bash.env
       echo "Infra setup is completed."
       ;;
     infra_ops_failed)
@@ -84,6 +86,8 @@ get_eaas_status() {
       get_eaas_status $TRIGGER_ID
       ;;
     deploy_completed)
+      echo "export FOO=BAR" >> $BASH_ENV
+      cp $BASH_ENV bash.env
       echo "Application deployed successfully."
       ;;
     deploy_failed)
