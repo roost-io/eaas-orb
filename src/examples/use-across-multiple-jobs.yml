@@ -38,6 +38,5 @@ usage:
       jobs:
         - job1
         - job2:
-          requires:
-            - job1
-            
+            requires:
+              - job1
