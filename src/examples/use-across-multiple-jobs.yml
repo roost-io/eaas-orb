@@ -5,7 +5,7 @@ usage:
   orbs:
     eaas-orb: roost-eaas-orb/eaas-orb@x.y
   jobs:
-    trigger-application:
+    job1:
       docker:
         - image: cimg/base:current
       steps:
