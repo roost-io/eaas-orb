@@ -24,8 +24,8 @@ trigger_eaas() {
   }")
 
   TRIGGER_IDS=$(echo $EAAS_RESPONSE | jq -r '.trigger_ids[0]')
-  ERROR_MSG=$(echo $EAAS_RESPONSE | jq -r '.message')
   if [ "$TRIGGER_IDS" == "null" ]; then
+    ERROR_MSG=$(echo $EAAS_RESPONSE | jq -r '.message')
     echo "Failed to trigger Eaas. Reason: ${ERROR_MSG}. Please try again."
     exit 1
   else
@@ -44,12 +44,12 @@ get_eaas_status() {
     \"trigger_id\" : \"$TRIGGER_ID\"
   }")
 
-  INFRA_STATUS=$(echo -E "$RESPONSE" | jq -r '.infra_output.INFRA_STATUS')
-  if [ -z "$INFRA_STATUS" ]; then
-    INFRA_STATUS="infra_setup_in_progress"
+  STATUS=$(echo -E "$RESPONSE" | jq -r '.infra_output.INFRA_STATUS')
+  if [ -z "$STATUS" -o "$STATUS" == "null" ]; then
+    STATUS=$(echo -E "$RESPONSE" | jq -r '.current_status')
   fi
 
-  case "$INFRA_STATUS" in
+  case "$STATUS" in
     infra_ops_in_progress)
       echo "Infra setup is in progress."
       sleep 30
@@ -62,6 +62,7 @@ get_eaas_status() {
           echo "export '$key'='$val'" >> $BASH_ENV
         fi
       done
+      echo "export FOO=BAR" >> $BASH_ENV
       cp $BASH_ENV bash.env
       echo "Infra setup is completed."
       ;;
@@ -85,6 +86,8 @@ get_eaas_status() {
       get_eaas_status $TRIGGER_ID
       ;;
     deploy_completed)
+      echo "export FOO=BAR" >> $BASH_ENV
+      cp $BASH_ENV bash.env
       echo "Application deployed successfully."
       ;;
     deploy_failed)
