@@ -24,10 +24,10 @@ usage:
       docker:
         - image: cimg/base:current
       steps:
-        # attach the created workspace into the job you want to use the exported kubeConfig is. 
+        # attach the created workspace into the job you want to use the exported kubeConfig is.
         - attach_workspace:
           at: .
-        # import the values stored in the bash.env file into your environment variables.  
+        # import the values stored in the bash.env file into your environment variables.
         - run: |
             cat bash.env >> $BASH_ENV
         # use the environment variable.
@@ -38,5 +38,6 @@ usage:
       jobs:
         - job1
         - job2:
-          requires: 
+          requires:
             - job1
+            
