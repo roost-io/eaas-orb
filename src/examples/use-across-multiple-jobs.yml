@@ -11,8 +11,10 @@ usage:
       steps:
         - checkout
         - eaas-orb/trigger-eaas:
-            application_name: "eaastest"
-            pipeline_project_type: "github"
+            application_name: eaastest
+            auth_token: ROOST_AUTH_TOKEN
+            pipeline_project_type: github
+            roost_server: ROOST_SERVER
         # use persist_to_workspace to make sure the created bash.env file persists even after the job is finished.
         - persist_to_workspace:
             root: .

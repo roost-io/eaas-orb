@@ -7,29 +7,33 @@ usage:
   jobs:
     cluster-create:
       docker:
-        - image: cimg/base:current
+        - image: 'cimg/base:current'
       steps:
         - checkout
         - eaas-orb/create-cluster:
-            email: "support@zb.io"
-            alias: ""
-            preemptible: "false"
-            k8s_version: "1.22.2"
-            cluster_expires_in_hours: "1"
-            num_workers: "1"
-            namespace: "roost-codespace"
-            region: "us-west-1"
-            disk_size: "50"
-            instance_type: "t3.large"
-            ami: "ubuntu focal 20.04"
+            alias: ''
+            ami: ubuntu focal 20.04
+            auth_token: ROOST_AUTH_TOKEN
+            cluster_expires_in_hours: '1'
+            disk_size: '50'
+            email: support@zb.io
+            instance_type: t3.large
+            k8s_version: 1.22.2
+            namespace: roost-codespace
+            num_workers: '1'
+            preemptible: 'false'
+            region: us-west-1
+            roost_server: ROOST_SERVER
     trigger-application:
       docker:
-        - image: cimg/base:current
+        - image: 'cimg/base:current'
       steps:
         - checkout
         - eaas-orb/trigger-eaas:
-            application_name: "eaastest"
-            pipeline_project_type: "github"
+            application_name: eaastest
+            auth_token: ROOST_AUTH_TOKEN
+            pipeline_project_type: github
+            roost_server: ROOST_SERVER
   workflows:
     use-my-orb:
       jobs:
