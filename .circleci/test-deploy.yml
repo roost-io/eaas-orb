@@ -29,7 +29,7 @@ workflows:
           requires:
             - orb-tools/pack
             - command-tests
-          context: orb-publishing
+          context: publish-eaas
           filters:
             branches:
               ignore: /.*/
